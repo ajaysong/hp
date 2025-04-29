@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구매하기 - 놀자숲</title>
+    <script>
+        // 페이지 로드 시 네이버 지도로 자동 리다이렉트
+        window.location.href = "https://map.naver.com/p/search/%EB%86%80%EC%9E%90%EC%88%B2/place/1009425052?placePath=?entry=pll&from=nx&fromNxList=true&searchType=place&c=15.00,0,0,0,dh";
+    </script>
+    <style>
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f3f4f6;
+        }
+        .loading {
+            text-align: center;
+            color: #16a34a;
+        }
+        .spinner {
+            border: 4px solid #f3f4f6;
+            border-top: 4px solid #16a34a;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading">
+        <div class="spinner"></div>
+        <p>구매 페이지로 이동 중입니다...</p>
+    </div>
+</body>
+</html> 

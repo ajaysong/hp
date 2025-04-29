@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>놀자숲 - 수도권 유일 국내 최대 숲 테마파크</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        },
+                        secondary: {
+                            50: '#f8fafc',
+                            100: '#f1f5f9',
+                            200: '#e2e8f0',
+                            300: '#cbd5e1',
+                            400: '#94a3b8',
+                            500: '#64748b',
+                            600: '#475569',
+                            700: '#334155',
+                            800: '#1e293b',
+                            900: '#0f172a',
+                        },
+                    },
+                    fontFamily: {
+                        sans: ['Noto Sans KR', 'sans-serif'],
+                    },
+                    boxShadow: {
+                        'custom': '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+                    },
+                    keyframes: {
+                        'ken-burns': {
+                            '0%': { transform: 'scale(1)' },
+                            '100%': { transform: 'scale(1.1)' }
+                        }
+                    },
+                    animation: {
+                        'ken-burns': 'ken-burns 20s ease-in-out infinite alternate'
+                    }
+                },
+            },
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                @apply bg-gray-50;
+            }
+        }
+        
+        @layer components {
+            .btn-primary {
+                @apply relative overflow-hidden bg-primary-600 text-white font-semibold py-3 px-8 rounded-lg
+                       transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-xl
+                       before:absolute before:inset-0 before:bg-white/20 before:transform before:translate-x-[-100%]
+                       hover:before:translate-x-[100%] before:transition-transform before:duration-700;
+            }
+            
+            .btn-vr {
+                @apply relative overflow-hidden bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold 
+                       py-2 px-4 rounded-lg transition-all duration-300 transform hover:scale-105 shadow-md 
+                       hover:shadow-lg border-2 border-primary-400 hover:border-primary-500
+                       flex items-center space-x-2 before:absolute before:inset-0 before:bg-white/20 
+                       before:transform before:translate-x-[-100%] hover:before:translate-x-[100%] 
+                       before:transition-transform before:duration-700;
+            }
+            
+            .section-title {
+                @apply text-4xl md:text-5xl font-bold text-secondary-800 mb-4 text-center relative;
+            }
+            
+            .section-title::after {
+                content: '';
+                @apply block w-20 h-1 bg-gradient-to-r from-primary-400 to-primary-600 mx-auto mt-4 rounded-full;
+            }
+            
+            .card {
+                @apply bg-white rounded-xl shadow-custom overflow-hidden transition-all duration-300 
+                       hover:shadow-xl transform hover:-translate-y-1 backdrop-blur-sm;
+            }
+
+            .nav-link {
+                @apply text-secondary-700 hover:text-primary-600 transition-colors duration-300 font-medium
+                       relative after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 
+                       after:bg-primary-500 after:transition-all after:duration-300 hover:after:w-full;
+            }
+
+            .feature-card {
+                @apply bg-white/90 rounded-2xl p-8 shadow-custom hover:shadow-xl transition-all duration-300 
+                       transform hover:-translate-y-1 backdrop-blur-sm border border-white/50;
+            }
+
+            .testimonial-card {
+                @apply bg-white/90 rounded-2xl p-8 shadow-custom hover:shadow-xl transition-all duration-300 backdrop-blur-sm;
+            }
+
+            .seasonal-badge {
+                @apply absolute top-4 right-4 bg-gradient-to-r from-primary-500 to-primary-600 
+                       text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg;
+            }
+
+            .quick-link {
+                @apply flex items-center justify-center p-4 bg-white/90 rounded-lg shadow-custom 
+                       hover:shadow-xl transition-all duration-300 backdrop-blur-sm border border-white/50;
+            }
+
+            .info-box {
+                @apply bg-white/90 rounded-xl p-6 shadow-custom backdrop-blur-sm;
+            }
+        }
+
+        .image-hover-zoom {
+            @apply transition-transform duration-700 ease-in-out transform hover:scale-110;
+        }
+
+        .gradient-overlay {
+            @apply absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent 
+                   opacity-0 group-hover:opacity-100 transition-opacity duration-300;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body class="font-sans text-secondary-700">
+    <!-- Header -->
+    <header class="fixed w-full bg-white/95 backdrop-blur-sm shadow-md z-50">
+        <nav class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-primary-600 flex items-center">
+                <img src="images/nolja logo.jpg" alt="놀자숲 로고" class="h-10 mr-2 rounded-lg">
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <ul class="flex space-x-8">
+                    <li><a href="#home" class="nav-link">홈</a></li>
+                    <li><a href="#about" class="nav-link">소개</a></li>
+                    <li><a href="#facilities" class="nav-link">체험시설</a></li>
+                    <li><a href="#seasonal" class="nav-link">시즌별 체험</a></li>
+                    <li><a href="#amenities" class="nav-link">부대시설</a></li>
+                    <li><a href="#tickets" class="nav-link">요금 및 이용안내</a></li>
+                    <li><a href="#location" class="nav-link">오시는길</a></li>
+                    <li><a href="#contact" class="nav-link">문의하기</a></li>
+                </ul>
+                <a href="https://www.ddc.go.kr/site/tour/forest/" 
+                   target="_blank" 
+                   rel="noopener noreferrer" 
+                   class="btn-vr">
+                    <i class="fas fa-vr-cardboard"></i>
+                    <span>VR 투어</span>
+                </a>
+            </div>
+            <button class="md:hidden text-2xl text-secondary-700">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen relative overflow-hidden">
+        <!-- Background Image -->
+        <div class="absolute inset-0">
+            <img src="images/noljasoop.jpeg" alt="놀자숲 전경" class="w-full h-full object-cover scale-105 animate-[ken-burns_20s_ease-in-out_infinite_alternate]">
+            <div class="absolute inset-0 bg-gradient-to-b from-black/40 via-black/20 to-black/40"></div>
+        </div>
+        
+        <!-- Content -->
+        <div class="relative h-screen flex items-center justify-center">
+            <div class="container mx-auto px-4 text-center text-white" data-aos="fade-up" data-aos-duration="1000">
+                <h1 class="text-5xl md:text-7xl font-bold mb-6 leading-tight drop-shadow-lg">수도권 유일<br>국내 최대 숲 테마파크</h1>
+                <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto drop-shadow-lg">산과 숲이 어우러진 자연 속에서<br>특별한 모험과 추억을 만들어보세요</p>
+                <div class="space-x-4">
+                    <a href="https://www.ddc.go.kr/site/tour/forest/" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn-primary inline-block bg-white/10 backdrop-blur-sm border-2 border-white hover:bg-white/20 text-white">
+                        <i class="fas fa-vr-cardboard mr-2"></i>VR 투어
+                    </a>
+                    <a href="reservation.html" 
+                       target="_blank" 
+                       rel="noopener noreferrer" 
+                       class="btn-primary inline-block bg-white/10 backdrop-blur-sm border-2 border-white hover:bg-white/20 text-white">
+                        <i class="fas fa-ticket-alt mr-2"></i>구매하기
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#quick-links" class="text-white text-4xl opacity-70 hover:opacity-100 transition-opacity">
+                <i class="fas fa-chevron-down"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- Quick Links -->
+    <section id="quick-links" class="py-12 bg-white/95 backdrop-blur-sm relative -mt-20 z-10 rounded-t-3xl shadow-lg">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <a href="#facilities" class="quick-link group">
+                    <div class="text-center">
+                        <i class="fas fa-mountain text-3xl text-primary-500 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <p class="font-medium">체험시설</p>
+                    </div>
+                </a>
+                <a href="#tickets" class="quick-link group">
+                    <div class="text-center">
+                        <i class="fas fa-ticket-alt text-3xl text-primary-500 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <p class="font-medium">이용권</p>
+                    </div>
+                </a>
+                <a href="#seasonal" class="quick-link group">
+                    <div class="text-center">
+                        <i class="fas fa-calendar-alt text-3xl text-primary-500 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <p class="font-medium">시즌별 체험</p>
+                    </div>
+                </a>
+                <a href="#contact" class="quick-link group">
+                    <div class="text-center">
+                        <i class="fas fa-info-circle text-3xl text-primary-500 mb-2 group-hover:scale-110 transition-transform"></i>
+                        <p class="font-medium">이용안내</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">놀자숲 소개</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="feature-card text-center">
+                    <i class="fas fa-mountain text-4xl text-primary-500 mb-4"></i>
+                    <h3 class="text-xl font-bold text-secondary-800 mb-2">실내/외 초대형 어드벤처</h3>
+                    <p class="text-secondary-600">다양한 체험시설로 모험과 즐거움을 제공합니다.</p>
+                </div>
+                <div class="feature-card text-center">
+                    <i class="fas fa-snowflake text-4xl text-primary-500 mb-4"></i>
+                    <h3 class="text-xl font-bold text-secondary-800 mb-2">시즌별 특별 체험</h3>
+                    <p class="text-secondary-600">계절에 맞는 특별한 체험을 즐길 수 있습니다.</p>
+                </div>
+                <div class="feature-card text-center">
+                    <i class="fas fa-child text-4xl text-primary-500 mb-4"></i>
+                    <h3 class="text-xl font-bold text-secondary-800 mb-2">가족 친화적</h3>
+                    <p class="text-secondary-600">모든 연령대가 함께 즐길 수 있는 공간입니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Indoor Facilities Section -->
+    <section id="indoor-facilities" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 relative" data-aos="fade-up">
+                <span class="relative inline-block">
+                    실내 체험시설
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-primary-300"></div>
+                </span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Fun Climb -->
+                <div class="facility-card group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg">
+                        <img src="images/fun2.jpg" alt="펀 클라임" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">펀클라임</h3>
+                            <p class="text-sm opacity-90">실내 암벽등반 체험</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Aerial Rope Course -->
+                <div class="facility-card group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg">
+                        <img src="images/air2.jpg" alt="에어리얼 로프코스" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">에어리얼로프코스</h3>
+                            <p class="text-sm opacity-90">공중 로프 어드벤처</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Net Course -->
+                <div class="facility-card group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg">
+                        <img src="images/net2.jpg" alt="네트코스" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">네트코스</h3>
+                            <p class="text-sm opacity-90">네트 위 모험</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Kids Adventure -->
+                <div class="facility-card group" data-aos="fade-up" data-aos-delay="400">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg">
+                        <img src="images/kids2.jpg" alt="키즈 어드벤처" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">키즈어드벤처</h3>
+                            <p class="text-sm opacity-90">어린이 전용 모험시설</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide Experience -->
+                <div class="facility-card group" data-aos="fade-up" data-aos-delay="500">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg">
+                        <img src="images/slide-experience.jpg" alt="슬라이드 체험" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">슬라이드 체험</h3>
+                            <p class="text-sm opacity-90">실내 슬라이드 어트랙션</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Outdoor Facilities Section -->
+    <section id="outdoor-facilities" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-4xl font-bold text-center mb-12 relative" data-aos="fade-up">
+                <span class="relative inline-block">
+                    야외 체험시설
+                    <div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-primary-300"></div>
+                </span>
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Extreme Slide -->
+                <div class="facility-card group" data-aos="fade-up" data-aos-delay="100">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg">
+                        <img src="images/extreme-slide.jpg" alt="익스트림 슬라이드" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">익스트림슬라이드</h3>
+                            <p class="text-sm opacity-90">스릴 넘치는 야외 슬라이드</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Forest Adventure -->
+                <div class="facility-card group" data-aos="fade-up" data-aos-delay="200">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg">
+                        <img src="images/forest-adventure.jpg" alt="포레스트 어드벤처" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">포레스트어드벤처</h3>
+                            <p class="text-sm opacity-90">숲 속 모험 코스</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sky Net -->
+                <div class="facility-card group" data-aos="fade-up" data-aos-delay="300">
+                    <div class="relative overflow-hidden rounded-xl shadow-lg">
+                        <img src="images/sky-net.jpg" alt="하늘네트" class="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 right-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">하늘네트</h3>
+                            <p class="text-sm opacity-90">공중 네트 어드벤처</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seasonal Activities Section -->
+    <section id="seasonal" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">시즌별 체험</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="card group relative">
+                    <span class="seasonal-badge">3~11월</span>
+                    <div class="relative overflow-hidden">
+                        <img src="images/suvival2.jpg" alt="레이저 서바이벌" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">레이저 서바이벌</h3>
+                            <p class="text-gray-200">3~11월 운영</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card group relative">
+                    <span class="seasonal-badge">7~8월</span>
+                    <div class="relative overflow-hidden">
+                        <img src="images/water2.jpg" alt="물놀이장" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">물놀이장</h3>
+                            <p class="text-gray-200">7~8월 운영</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card group relative">
+                    <span class="seasonal-badge">12~2월</span>
+                    <div class="relative overflow-hidden">
+                        <img src="images/snow2.jpg" alt="스노우타운 눈썰매장" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">스노우타운 눈썰매장</h3>
+                            <p class="text-gray-200">12~2월 운영</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Amenities Section -->
+    <section id="amenities" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">부대시설</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <div class="card group">
+                    <div class="relative overflow-hidden">
+                        <img src="images/food.jpg" alt="푸드코트" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">Food</h3>
+                            <p class="text-gray-200">다양한 메뉴의 푸드코트</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card group">
+                    <div class="relative overflow-hidden">
+                        <img src="images/cafe1.jpg" alt="카페" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">Cafe</h3>
+                            <p class="text-gray-200">커피와 디저트를 즐기는 공간</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="card group">
+                    <div class="relative overflow-hidden">
+                        <img src="images/rest.jpg" alt="휴게시설" class="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent"></div>
+                        <div class="absolute bottom-0 left-0 p-6 text-white">
+                            <h3 class="text-2xl font-bold mb-2">휴게시설</h3>
+                            <p class="text-gray-200">편안한 휴식 공간</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tickets Section -->
+    <section id="tickets" class="py-20 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">이용 및 요금안내</h2>
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="card overflow-hidden">
+                        <img src="images/price 3-11.jpeg" alt="일반 시즌 요금표" class="w-full object-contain">
+                    </div>
+                    <div class="card overflow-hidden">
+                        <img src="images/price 12-2.jpeg" alt="동계 시즌 요금표" class="w-full object-contain">
+                    </div>
+                </div>
+                
+                <!-- 이용 수칙 섹션 -->
+                <div class="bg-white rounded-xl p-8 shadow-lg">
+                    <h3 class="text-2xl font-bold text-primary-800 mb-6">놀자숲 이용 수칙</h3>
+                    <ol class="list-decimal list-inside space-y-4 text-secondary-700">
+                        <li>체험 개시 후 개인 변심에 의한 미사용 이유로 환불이 불가합니다.</li>
+                        <li>실/내외 체험시설 이용 시 체험 복장을 준수해야 하며 반드시 운동화와 양말을 착용해야 합니다.
+                            <p class="ml-6 mt-2 text-secondary-600">(크록스, 아쿠아슈즈, 축구화, 풋살화, 구두, 슬리퍼(쪼리), 발이 보이는 샌들, 치마, 원피스 착용 시 시설 이용 불가합니다.)</p>
+                            <p class="ml-6 mt-2 text-secondary-600">단, 물놀이장 이용 시 실내화 또는 아쿠아슈즈를 착용해야 합니다.</p>
+                        </li>
+                        <li>안전요원이 제시하는 이용 방법과 안내사항을 준수해야 하며 안전을 위하여 체험 활동에 지장을 주는 행위를 금지합니다.</li>
+                        <li>음주자, 임산부, 심신 허약자, 심혈 관계자, 기타 근골격계 이상이 있으신 분 및 고소공포증이 심하신 분은 이용을 제한하오니 반드시 이용전 관리자에게 통보하여 주시기 바랍니다.</li>
+                        <li>체험 시설 이용 시 분실될 우려가 있는 귀중품은 안전한 장소에 보관해 주시기 바랍니다.</li>
+                        <li>시설물 준수 사항, 안전 수칙 위반 시 발생하는 사고의 책임은 사용자에게 있습니다.</li>
+                        <li>사용자가 고의 또는 과실로 인한 시설물의 파손 등 손해가 발생할 경우 사용자는 이를 배상하여야 합니다.</li>
+                        <li>시설물 전체는 금연구역이며, 불을 피우는 등 취사행위를 할 수 없습니다.</li>
+                        <li>우천 시나 설천(눈) 또는 강풍, 낙뢰, 기타 천재지변으로 운영이 불가능할 경우 실외시설 이용을 제한합니다.</li>
+                        <li>외부 음식물 및 돗자리의 반입을 제한합니다.</li>
+                        <li>애완동물의 출입을 제한합니다. (별도의 보호소가 존재하지 않습니다.)</li>
+                        <li>주니어 체험권(키 115cm 미만)은 보호자 동반이 필수입니다.</li>
+                    </ol>
+
+                    <h3 class="text-2xl font-bold text-primary-800 mt-8 mb-6">스노우타운 이용 수칙</h3>
+                    <ol class="list-decimal list-inside space-y-4 text-secondary-700">
+                        <li>스노우타운 이용시 장갑은 필히 착용하시기 바랍니다. (미착용 시 이용 제한)</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location Section -->
+    <section id="location" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">오시는길</h2>
+            <div class="max-w-6xl mx-auto">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <!-- Map -->
+                    <div class="card p-6">
+                        <div class="aspect-w-16 aspect-h-9 mb-6">
+                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.1151757664673!2d127.06485731531301!3d37.93756797972983!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x357cc169c53a5bed%3A0x2d8a53cb1fa87c02!2z64yA7ZWc66-86rWt7KCc7KO87Yq4!5e0!3m2!1sko!2skr!4v1631234567890!5m2!1sko!2skr" 
+                                width="100%" 
+                                height="450" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy">
+                            </iframe>
+                        </div>
+                    </div>
+                    
+                    <!-- Location Info -->
+                    <div class="card p-6">
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-xl font-bold text-primary-800 mb-2">주소</h3>
+                                <p class="text-secondary-600">경기도 동두천시 탑동가산로1, 놀자숲</p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-bold text-primary-800 mb-2">연락처</h3>
+                                <p class="text-secondary-600">전화: 031-866-5560</p>
+                                <p class="text-secondary-600">이메일: fun_forest@naver.com</p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-bold text-primary-800 mb-2">운영시간</h3>
+                                <div class="space-y-2">
+                                    <p class="text-secondary-600">
+                                        <span class="font-medium">평일/주말/공휴일:</span> 10:00 - 18:00
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-xl font-bold text-primary-800 mb-2">대중교통 이용</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <p class="font-medium text-primary-700 mb-2">● BY BUS</p>
+                                        <ul class="list-none text-secondary-600 ml-4 space-y-1">
+                                            <li>50 왕방리ㆍ산장 하차</li>
+                                            <li>60-3 동두천 놀자숲 하차</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <p class="font-medium text-primary-700 mb-2">● BY SUBWAY</p>
+                                        <p class="text-secondary-600 ml-4">
+                                            [지하철] 1호선 지행역 하차 → [버스] 50(지행역), 60-3(현진아파트)
+                                        </p>
+                                    </div>
+                                    
+                                    <div>
+                                        <p class="font-medium text-primary-700 mb-2">● BY CAR</p>
+                                        <ul class="list-none text-secondary-600 ml-4 space-y-1">
+                                            <li>서울 → 구리/포천 고속도로 → 선단IC에서 8분 소요</li>
+                                            <li>동두천 → 탑동 터널 통과 후 5분 소요</li>
+                                        </ul>
+                                    </div>
+                                    
+                                    <div>
+                                        <p class="font-medium text-primary-700 mb-2">주차정보</p>
+                                        <p class="text-secondary-600 ml-4">무료 주차</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="section-title">문의하기</h2>
+            <div class="max-w-2xl mx-auto">
+                <form class="space-y-6">
+                    <div>
+                        <input type="text" placeholder="이름" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <input type="email" placeholder="이메일" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent">
+                    </div>
+                    <div>
+                        <textarea placeholder="문의내용" rows="5" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-transparent"></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary w-full">보내기</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-secondary-900 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <h3 class="text-2xl font-bold mb-4 flex items-center">
+                        <img src="images/nolja logo.jpg" alt="놀자숲 로고" class="h-10 mr-2"></i>                        
+                    </h3>
+                    <p class="mb-2 text-gray-300">주소: 경기도 동두천시 탑동가산로1, 놀자숲</p>
+                    <p class="mb-2 text-gray-300">전화: 031-866-5560</p>
+                    <p class="text-gray-300">이메일: fun_forest@naver.com</p>
+                </div>
+                <div class="md:col-span-2">
+                    <h4 class="text-lg font-bold mb-4">운영시간</h4>
+                    <div class="grid grid-cols-2 gap-4 text-gray-300">
+                        <div>
+                            <p class="font-medium">평일</p>
+                            <p>10:00 - 18:00</p>
+                        </div>
+                        <div>
+                            <p class="font-medium">주말/공휴일</p>
+                            <p>10:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="flex justify-center space-x-6 mb-8">
+                <a href="#" class="text-2xl hover:text-primary-400 transition-colors">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="#" class="text-2xl hover:text-primary-400 transition-colors">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="#" class="text-2xl hover:text-primary-400 transition-colors">
+                    <i class="fab fa-youtube"></i>
+                </a>
+            </div>
+            <div class="border-t border-gray-700 pt-8 text-center text-gray-400">
+                <p>&copy; 2022 놀자숲. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Initialize AOS
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false
+        });
+    </script>
+</body>
+</html>
